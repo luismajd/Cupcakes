@@ -18,13 +18,15 @@
                     <a class="nav-link text-expanded" href="{{ route('postre.index') }}">Postres</a>
                 </li>
                 <li class="nav-item active px-lg-4">
-                    <a class="nav-link text-expanded" href="{{ route('pedido.create') }}">Hacer pedido
+                    <a class="nav-link text-expanded" href="{{ route('pedido.index') }}">Pedido
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item px-lg-4">
-                    <a class="nav-link text-expanded" href="">Contacto</a>
-                </li>
+                @if(\Gate::allows('administrador'))
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-expanded" href="{{ route('user.index') }}">Usuarios</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -38,7 +40,26 @@
                     <h2 class="section-heading mb-4">
                     <span class="section-heading-form">Levanta tu pedido</span>
                     </h2>
+                    <a href="{{ route('user.show', Auth::user()->id) }}" class="btn btn-success btn-sm">Ver mis pedidos</a>
+                    <br><br>
                     {!! Form::open(['route' => 'pedido.store']) !!}
+
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        <div class="form-group row">
+                            {!! Form::label('user_id', 'ID usuario', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('user_id', Auth::user()->id, ['class' => 'form-control', 'id' => 'user_id', 'readonly']) !!}
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             {!! Form::label('fecha_entrega', 'Fecha de entrega', ['class' => 'col-md-4 col-form-label text-md-right']) !!}
@@ -47,8 +68,10 @@
                             </div>
                         </div>
 
+                        {{-- $postres->links() --}}
                         <table class="table">
                             <tr>
+                                <th>ID</th>
                                 <th>Postre</th>
                                 <th>Descripción</th>
                                 <th>Precio $</th>
@@ -58,6 +81,7 @@
                             </tr>
                             @foreach($postres as $postre)
                                 <tr>
+                                    <td>{!! Form::text('postre_id[]', $postre->id, ['class' => 'form-control', 'id' => 'postre_id', 'readonly']) !!} </td>
                                     <td>{{ $postre->nombre }}</td>
                                     <td>{{ $postre->descripcion }}</td>
                                     <td>{!! Form::text('precio[]', $postre->precio, ['class' => 'form-control', 'id' => 'precio', 'readonly']) !!}</td>
@@ -66,7 +90,7 @@
                                         {!! Form::hidden('agregar[]', '0', false, ['class' => 'form-control', 'id' => 'agregar']) !!}
                                         {!! Form::checkbox('agregar[]', '1', false, ['class' => 'form-control', 'id' => 'agregar']) !!}
                                     </td>
-                                    <td>{!! Form::number('cantidad[]', null, ['class' => 'form-control', 'id' => 'cantidad', 'min' => '0']) !!}</td>
+                                    <td>{!! Form::number('cantidad[]', 1, ['class' => 'form-control', 'id' => 'cantidad', 'min' => '1']) !!}</td>
                                 </tr>
                             @endforeach
                         </table>
@@ -85,7 +109,7 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

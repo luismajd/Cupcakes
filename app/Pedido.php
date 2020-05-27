@@ -15,6 +15,6 @@ class Pedido extends Model
 
     public function postres()
     {
-        return $this->belongsToMany(Postre::class);
+        return $this->belongsToMany(Postre::class)->withPivot('cantidad');
     }
 }

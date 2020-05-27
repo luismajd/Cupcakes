@@ -39,40 +39,26 @@
                 <div class="form-inner text-center rounded">
                     <table class="table">
                         <tr>
+                            <th>ID</th>
                             <th>Postre</th>
                             <th>Descripción</th>
                             <th>Precio</th>
                             <th>Imagen</th>
-                            @if(\Gate::allows('administrador'))
-                                <th></th>
-                                <th></th>
-                            @endif
+                            <th></th>
                         </tr>
                         @foreach($postres as $postre)
                             <tr>
+                                <td>{{ $postre->id }}</td>
                                 <td>{{ $postre->nombre }}</td>
                                 <td>{{ $postre->descripcion }}</td>
                                 <td>{{ '$'.$postre->precio }}</td>
-                                <td><img src='{{ 'img/' . $postre->imagen }}' height="100" width="100"></td>
-                                @if(\Gate::allows('administrador'))
+                                <td><img src='{{ asset('img/' . $postre->imagen) }}' height="100" width="100"></td>
                                 <td>
-                                    <a href="{{ route('postre.edit', $postre->id) }}" class="btn btn-primary btn-sm">Modificar</a>
+                                    <a href="{{ route('postre.unhide', $postre->id) }}" class="btn btn-success btn-sm">Desocultar</a>
                                 </td>
-                                <td>
-                                    <form action="{{ route('postre.destroy', $postre->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="sumbit" class="btn btn-danger btn-sm">Ocultar</button>
-                                    </form>
-                                </td>
-                                @endif
                             </tr>
                         @endforeach
                     </table>
-                    @if(\Gate::allows('administrador'))
-                        <a href="{{ route('postre.create') }}" class="btn btn-success btn-sm">Añadir un postre</a>
-                        <a href="{{ route('postre.hidden') }}" class="btn btn-warning btn-sm">Ver postres ocultos</a>
-                    @endif
                 </div>
             </div>
         </div>

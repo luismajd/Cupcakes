@@ -27,6 +27,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -74,8 +75,10 @@
         </nav>
     </div>
 
+    @include('layouts.mensaje')
+
     <h1 class="site-heading text-center text-white d-none d-lg-block">
-        <span class="site-heading-upper text-primary mb-3">[ Slogan ]</span>
+        <span class="site-heading-upper text-primary mb-3">El amor en un bocado</span>
         <span class="site-heading-lower title">Le Petit Cupcake</span>
     </h1>
 

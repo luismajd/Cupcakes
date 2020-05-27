@@ -20,6 +20,10 @@ class CreatePostresTable extends Migration
             $table->decimal('precio');
             $table->string('imagen');
         });
+
+        Schema::table('postres', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**

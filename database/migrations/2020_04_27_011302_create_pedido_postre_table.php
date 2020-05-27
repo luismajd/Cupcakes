@@ -18,6 +18,9 @@ class CreatePedidoPostreTable extends Migration
             $table->unsignedBigInteger('postre_id');
             $table->unsignedInteger('cantidad');
             $table->decimal('precio_postre');
+
+            $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');
+            $table->foreign('postre_id')->references('id')->on('postres')->onDelete('cascade');
         });
     }
 

@@ -29,6 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
+    //protected $redirectTo = RouteServiceProvider::HOME;
     protected $redirectTo = RouteServiceProvider::PEDIDO;
 
     /**
@@ -53,7 +54,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'tel' => ['required', 'string', 'min:10', 'max:12', 'unique:users'],
+            'tel' => ['required', 'size:10'],
         ]);
     }
 
@@ -71,5 +72,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'tel' => $data['tel'],
         ]);
+
+        /*
+        $user->sendEmailVerificationNotification();
+
+        return $user;*/
     }
 }

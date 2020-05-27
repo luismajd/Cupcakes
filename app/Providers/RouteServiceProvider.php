@@ -22,7 +22,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
-    public const PEDIDO = '/pedido/create';
+    public const PEDIDO = '/pedido';
 
     /**
      * Define your route model bindings, pattern filters, etc.

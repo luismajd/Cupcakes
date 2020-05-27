@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Postre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class PostreController extends Controller
 {
@@ -26,7 +27,8 @@ class PostreController extends Controller
      */
     public function create()
     {
-        //
+        //echo "Entrando a create";
+        return view('postres.postreForm');
     }
 
     /**
@@ -37,7 +39,16 @@ class PostreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'imagen' => 'required|ends_with:.jpg,.png'
+        ]);
+
+        Postre::create($request->all());
+
+        return redirect()->route('postre.index');
     }
 
     /**
@@ -59,7 +70,7 @@ class PostreController extends Controller
      */
     public function edit(Postre $postre)
     {
-        //
+        return view('postres.postreForm', compact('postre'));
     }
 
     /**
@@ -71,7 +82,16 @@ class PostreController extends Controller
      */
     public function update(Request $request, Postre $postre)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'precio' => 'required',
+            'imagen' => 'required|ends_with:.jpg,.png'
+        ]);
+
+        Postre::where('id', $postre->id)->update($request->except('_method', '_token'));
+
+        return redirect()->route('postre.index');
     }
 
     /**
@@ -82,6 +102,25 @@ class PostreController extends Controller
      */
     public function destroy(Postre $postre)
     {
-        //
+        $postre->delete();
+        return redirect()->route('postre.index');
+    }
+
+    public function hidden()
+    {
+        if(Gate::allows('administrador'))
+        {
+            $postres = Postre::onlyTrashed()->get();
+
+            return view('postres.postreHiddenList', compact('postres'));
+        }
+        return redirect()->route('postre.index');
+    }
+
+    public function unhide($id)
+    {
+        //echo "Entrando a unhide";
+        Postre::onlyTrashed()->find($id)->restore();
+        return redirect()->route('postre.index');
     }
 }

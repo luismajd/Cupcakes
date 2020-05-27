@@ -118,6 +118,9 @@ color:rgba(228, 179, 19, 0.856);
 }
 
 }
+.btn-link {
+    color: rgb(75, 6, 38);
+}
 .btn-xl
 {
 font-weight:700;
@@ -198,10 +201,11 @@ padding-right:10rem;
 position:relative;
 padding:1rem;
 margin:.5rem;
-background-color:rgba(255,255,255,.85)
+background-color:rgba(255, 255, 255, 0.85)
 }
 .form .form-inner:before
 {
+pointer-events: none;
 border-radius:.5rem;
 content:'';
 position:absolute;

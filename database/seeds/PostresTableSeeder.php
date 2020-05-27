@@ -21,9 +21,17 @@ class PostresTableSeeder extends Seeder
 
         Postre::create([
             'nombre' => 'Pay frío de Oreo',
-            'descripcion' => 'Pay frío y cremoso de delciosas galletas Oreo',
+            'descripcion' => 'Costra sabor galleta Oreo. Pay con queso crema combinado con trocitos de galleta Oreo',
             'precio' => '250.00',
             'imagen' => 'pay_frio_oreo.jpg'
+        ]);
+
+        Postre::create([
+            'nombre' => 'Rosca de verduras',
+            'descripcion' => 'Rica rosca de verdura compuesta por jícama, zanahoria y pepino. Acompañada de
+            cacahuates y gomitas. Bañada en chamoy, chile en polvo y limón',
+            'precio' => '200.00',
+            'imagen' => 'rosca_verduras.jpg'
         ]);
     }
 }

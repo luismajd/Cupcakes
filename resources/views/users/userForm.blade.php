@@ -20,6 +20,13 @@
                 <li class="nav-item px-lg-4">
                     <a class="nav-link text-expanded" href="{{ route('pedido.index') }}">Pedido</a>
                 </li>
+                @if(\Gate::allows('administrador'))
+                    <li class="nav-item active px-lg-4">
+                        <a class="nav-link text-expanded" href="{{ route('user.index') }}">Usuarios
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -28,12 +35,12 @@
 <section class="page-section form">
     <div class="container">
         <div class="row">
-            <div class="col-xl-9 mx-auto">
+            <div class="col-xl-12 mx-auto">
                 <div class="form-inner text-center rounded">
                     <h2 class="section-heading mb-4">
-                    <span class="section-heading-form">Por favor, ingresa tus datos</span>
+                        <span class="section-heading-form">Agregar administrador</span>
                     </h2>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('user.store') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -79,7 +86,15 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Crea tu contraseña') }}</label>
+                            <label for="clase" class="col-md-4 col-form-label text-md-right">{{ __('Clase') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="clase" class="form-control" name="clase" value="Admin" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Crear contraseña') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -93,7 +108,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirma tu contraseña') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar contraseña') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -103,7 +118,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary btn-lg">
-                                    {{ __('Registrarme') }}
+                                    {{ __('Registrar') }}
                                 </button>
                             </div>
                         </div>

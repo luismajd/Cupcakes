@@ -18,10 +18,7 @@
                     <a class="nav-link text-expanded" href="{{ route('postre.index') }}">Postres</a>
                 </li>
                 <li class="nav-item px-lg-4">
-                    <a class="nav-link text-expanded" href="{{ route('pedido.create') }}">Hacer pedido</a>
-                </li>
-                <li class="nav-item px-lg-4">
-                    <a class="nav-link text-expanded" href="">Contacto</a>
+                    <a class="nav-link text-expanded" href="{{ route('pedido.index') }}">Pedido</a>
                 </li>
             </ul>
         </div>
@@ -91,13 +88,12 @@
 
                 <div class="form-group row mb-0">
                     <div class="col-md-8 offset-md-2">
-                        @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('¿Olvidaste tu contraseña?') }}
-                            </a>
-                        @endif
+                        <a class="btn btn-link" href="{{ route('register') }}">
+                            {{ __('No me he registrado aún') }}
+                        </a>
                     </div>
                 </div>
+
             </form>
           </div>
         </div>
